@@ -3,9 +3,7 @@ services:
     build: .
     container_name: nonstop-kino-bot
     restart: unless-stopped
-    env_file:
-      - path: .env
-        required: false
+    env_file: .env
     environment:
       TZ: ${TZ:-Europe/Vienna}
       DATA_DIR: /data
