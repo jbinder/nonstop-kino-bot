@@ -50,8 +50,8 @@ docker compose logs -f
 
 Then open the bot in Telegram and send `/start`.
 
-The container runs as uid/gid 1000 by default. If your host user has a different id,
-add `UID=<id>` and `GID=<id>` to `.env` (or `chown` the `data` directory accordingly).
+The container fixes the ownership of the mounted `data` directory on start and then runs
+as an unprivileged user (uid 1000), so it works regardless of who created `./data`.
 
 ## Configuration
 
