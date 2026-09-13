@@ -1,0 +1,21 @@
+services:
+  kino-bot:
+    build: .
+    container_name: nonstop-kino-bot
+    restart: unless-stopped
+    env_file:
+      - path: .env
+        required: false
+    environment:
+      TZ: ${TZ:-Europe/Vienna}
+      DATA_DIR: /data
+    volumes:
+      # persistent cache: sqlite db (users, program, movies, cinemas, ratings, geocache) + images
+      - ./data:/data
+    # the image runs as uid 1000; make sure ./data is writable by that uid (see README)
+    user: "${UID:-1000}:${GID:-1000}"
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
